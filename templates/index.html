@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa de Localização</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Localização Atual</h1>
-    <p id="status">Clique no botão para obter sua localização.</p>
-    <button onclick="pegarPos()">Obter Localização</button>
+    <div class="container">
+        <h1>Bem-vindo!</h1>
+        <input id="endereco" type="text" placeholder="Para onde deseja ir?">
+        <button onclick="pegarPos()">Ir</button>
+    </div>
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>

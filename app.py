@@ -27,26 +27,49 @@ def salvar_localizacao():
 @app.route('/map')
 def map():
     # Obtenha a latitude e longitude da URL
-    latitude = request.args.get('latitude', type=float)
-    longitude = request.args.get('longitude', type=float)
+    latitude_atual = request.args.get('latitude', type=float)
+    longitude_atual = request.args.get('longitude', type=float)
+    endereco = request.args.get('endereco')
 
-    # Verifica se as coordenadas foram passadas
-    if latitude is None or longitude is None:
-        # Se não houver coordenadas, use uma localização padrão (São Paulo, Brasil)
-        location = "São Paulo, Brazil"
-        geolocator = Nominatim(user_agent="geoapi")
-        location = geolocator.geocode(location)
-        latitude = location.latitude
-        longitude = location.longitude
+    geolocator = Nominatim(user_agent="geoapi")
+
+    # Verifica se um endereço foi passado
+    if endereco:
+        location = geolocator.geocode(endereco)
+        if location:
+            latitude_destino = location.latitude
+            longitude_destino = location.longitude
+        else:
+            latitude_destino = None
+            longitude_destino = None
+    else:
+        latitude_destino = None
+        longitude_destino = None
 
     # Criação do mapa centrado nas coordenadas obtidas
-    mapa = folium.Map(location=[latitude, longitude], zoom_start=15)
+    mapa = folium.Map(location=[latitude_atual, longitude_atual], zoom_start=15)
 
-    # Adicionar um marcador no mapa
+    # Adicionar um marcador para a localização atual
     folium.Marker(
-        [latitude, longitude],
-        popup="Você está aqui!"
+        [latitude_atual, longitude_atual],
+        popup="Você está aqui!",
+        icon=folium.Icon(color='blue')
     ).add_to(mapa)
+
+    # Adicionar um marcador para o destino se o endereço for válido
+    if latitude_destino and longitude_destino:
+        folium.Marker(
+            [latitude_destino, longitude_destino],
+            popup=f"Destino: {endereco}",
+            icon=folium.Icon(color='red')
+        ).add_to(mapa)
+
+        # Adicionar uma linha entre os dois pontos
+        folium.PolyLine(
+            locations=[(latitude_atual, longitude_atual), (latitude_destino, longitude_destino)],
+            color="green",
+            weight=5
+        ).add_to(mapa)
 
     # Renderizar o mapa em HTML
     mapa_html = mapa._repr_html_()

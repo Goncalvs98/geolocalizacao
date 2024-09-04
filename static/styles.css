@@ -1,0 +1,68 @@
+/* Estilos básicos para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+/* Estilo do contêiner principal */
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o título */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilo para o campo de entrada */
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilo para o botão */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito de hover para o botão */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para a página do mapa */
+.map-container {
+    width: 100vw;
+    height: 100vh; /* Mapa ocupa a altura total da viewport */
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajustes para o mapa */
+#map {
+    width: 100%;
+    height: 100%; /* Mapa ocupa 100% do contêiner */
+    border-radius: 10px;
+}
